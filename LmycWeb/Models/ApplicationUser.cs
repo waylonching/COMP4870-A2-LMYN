@@ -18,5 +18,13 @@ namespace LmycWeb.Models
         public string Country { get; set; }
         public long MobileNumber { get; set; }
         public string SailingExperience { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
     }
 }

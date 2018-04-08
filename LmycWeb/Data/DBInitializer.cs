@@ -34,7 +34,7 @@ namespace LmycWeb.Data
             // Initializing Users
             string password = "P@$$w0rd";
 
-            string user1 = "a@a.a"; // Admin
+            string user1 = "a"; // Admin
             if (await userManager.FindByNameAsync(user1) == null)
             {
                 var user = new ApplicationUser
@@ -49,7 +49,7 @@ namespace LmycWeb.Data
                     Country = "Canada",
                     MobileNumber = 6049000001,
                     SailingExperience = "4123 days",
-                    Email = user1
+                    Email = "a@a.a"
                 };
                 var result = await userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -59,7 +59,7 @@ namespace LmycWeb.Data
                 }
             }
 
-            string user2 = "m@m.m"; // Member
+            string user2 = "m"; // Member
             if (await userManager.FindByNameAsync(user2) == null)
             {
                 var user = new ApplicationUser
@@ -74,7 +74,7 @@ namespace LmycWeb.Data
                     Country = "Canada",
                     MobileNumber = 6049000002,
                     SailingExperience = "43 months",
-                    Email = user2
+                    Email = "m@m.m"
                 };
                 var result = await userManager.CreateAsync(user);
                 if (result.Succeeded)
@@ -87,15 +87,23 @@ namespace LmycWeb.Data
             // Initializing Boats
             if (!context.Boats.Any())
             {
-                List<Boat> Boats = GetBoats();
+                List<Boat> Boats = GetBoats(context);
 
                 context.Boats.AddRange(Boats);
                 context.SaveChanges();
             }
 
+            if (!context.Borrows.Any())
+            {
+                List<Borrow> Borrows = GetBorrows();
+
+                context.Borrows.AddRange(Borrows);
+                context.SaveChanges();
+            }
+
         }
 
-        private static List<Boat> GetBoats()
+        private static List<Boat> GetBoats(ApplicationDbContext context)
         {
             List<Boat> Boats = new List<Boat>()
             {
@@ -107,7 +115,7 @@ namespace LmycWeb.Data
                     Make = "C&C",
                     Year = 1981,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 },
 
                 new Boat
@@ -118,7 +126,7 @@ namespace LmycWeb.Data
                     Make = "C&C",
                     Year = 1979,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 },
 
                 new Boat
@@ -129,7 +137,7 @@ namespace LmycWeb.Data
                     Make = "C&C",
                     Year = 1979,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 },
 
                 new Boat
@@ -140,7 +148,7 @@ namespace LmycWeb.Data
                     Make = "Cal",
                     Year = 1983,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 },
 
                 new Boat
@@ -151,7 +159,7 @@ namespace LmycWeb.Data
                     Make = "Catalina",
                     Year = 1996,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 },
 
                 new Boat
@@ -162,7 +170,7 @@ namespace LmycWeb.Data
                     Make = "C&C",
                     Year = 1985,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 },
 
                 new Boat
@@ -173,11 +181,22 @@ namespace LmycWeb.Data
                     Make = "Hunter",
                     Year = 1980,
                     RecordCreationDate = DateTime.Today,
-                    CreatedBy = "a@a.a"
+                    CreatedBy = context.Users.FirstOrDefault(u => u.UserName == "a").Id
                 }
             };
 
             return Boats;
+        }
+
+        private static List<Borrow> GetBorrows()
+        {
+            List<Borrow> Borrows = new List<Borrow>
+            {
+                new Borrow{BorrowerName="John Cena", BoatId=1, StartDateTime=new DateTime(2018, 04, 01), EndDateTime=new DateTime(2018, 04, 3)},
+                new Borrow{BorrowerName="Storm Trooper", BoatId=2, StartDateTime=new DateTime(2018, 04, 01), EndDateTime=new DateTime(2018, 04, 6)},
+            };
+
+            return Borrows;
         }
     }
 }

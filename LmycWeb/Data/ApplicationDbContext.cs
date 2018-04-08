@@ -24,5 +24,6 @@ namespace LmycWeb.Data
         }
 
         public DbSet<Boat> Boats { get; set; }
+        public DbSet<Borrow> Borrows { get; set; }
     }
 }

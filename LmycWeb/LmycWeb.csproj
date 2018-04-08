@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-LmycWeb-9E417590-A0C7-465A-A9BE-33B65518C995</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180408065953_Added Borrow.cs" />
+    <Compile Remove="Data\Migrations\20180408065953_Added Borrow.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
@@ -16,10 +21,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ApiControllers\" />
   </ItemGroup>
 
 </Project>

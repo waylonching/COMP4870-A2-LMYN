@@ -11,6 +11,7 @@ namespace LmycWeb.Models
     {
         public int BoatId { get; set; }
         [Display(Name = "Boat Name")]
+        [MaxLength(30)]
         public string BoatName { get; set; }
         [Display(Name = "Picture")]
         public string Picture { get; set; }
@@ -30,5 +31,7 @@ namespace LmycWeb.Models
 
         [ScaffoldColumn(false)]
         public ApplicationUser User { get; set; }
+
+        public List<Borrow> Borrows { get; set; }
     }
 }
