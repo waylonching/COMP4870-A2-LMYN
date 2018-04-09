@@ -9,8 +9,6 @@ namespace LmycWeb.Models
     public class UserInRoleViewModel
     {
         [Key]
-        public string Id { get; set; }
-
         [Display(Name = "Username")]
         public string Username { get; set; }
 

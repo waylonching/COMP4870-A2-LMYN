@@ -86,7 +86,7 @@ namespace LmycWeb.Controllers
 
             if (role.Name == "Admin" || role.Name == "Member")
             {
-                ViewBag.Message = "Failed to delete role: Do not edit Admin or Member.";
+                ViewBag.Message = "Failed to edit role: Do not edit Admin or Member.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -100,10 +100,9 @@ namespace LmycWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 if (role.Name == "Admin" || role.Name == "Member")
                 {
-                    ViewBag.Message = "Failed to delete role: Do not edit Admin or Member.";
+                    ViewBag.Message = "Failed to edit role: Do not edit Admin or Member.";
                     return RedirectToAction(nameof(Index));
                 }
 

@@ -7,6 +7,7 @@ using LmycWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LmycWeb.Controllers
 {
@@ -30,38 +31,85 @@ namespace LmycWeb.Controllers
         // GET: UserInRoles
         public async Task<IActionResult> Index()
         {
-            //var userList = await 
-            //return View(userList);
-            return View();
-        }
+            var users = await _context.Users.ToListAsync();
 
-        // GET: UserInRoles/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            return View();
+            List<UserInRoleViewModel> userList = new List<UserInRoleViewModel>();
+            foreach (ApplicationUser user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                userList.Add(new UserInRoleViewModel
+                {
+                    Username = user.UserName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserRoles = (await _userManager.GetRolesAsync(user)) as List<string>
+                });
+            }
+                                
+            return View(userList);
         }
         
         // GET: UserInRoles/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(String id)
         {
-            return View();
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new UserInRoleViewModel
+            {
+                Username = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserRoles = (await _userManager.GetRolesAsync(user)) as List<string>
+            };
+
+            ViewBag.Roles = await _context.Roles.Select(r => r.Name).ToListAsync();
+            return View(viewModel);
         }
 
-        // POST: UserInRoles/Edit/5
+        // POST: UserInRoles/Edit/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit([Bind("Username, UserRoles")]UserInRoleViewModel model)
         {
-            try
+            if (model == null)
             {
-                // TODO: Add update logic here
+                throw new ArgumentNullException(nameof(model));
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == model.Username);
+
+            if (user == null)
             {
-                return View();
+                return NotFound();
             }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            // remove old roles
+            await _userManager.RemoveFromRolesAsync(user, roles);
+
+            // add new roles
+            await _userManager.AddToRolesAsync(user, model.UserRoles);
+
+            // special case - always have a in admin
+            if (user.UserName == "a")
+            {
+                await _userManager.AddToRoleAsync(user, "Admin");
+            }
+
+            return View(model);
         }
     }
 }
