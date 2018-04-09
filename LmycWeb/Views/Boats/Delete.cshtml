@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Picture)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Picture)
+            <img src="@Url.Content(Model.Picture)" alt="Image" />
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.LengthInFeet)

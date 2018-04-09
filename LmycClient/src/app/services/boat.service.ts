@@ -18,10 +18,10 @@ export class BoatService {
      .catch(this.handleError);
   }
 
-  // getBoatById(id: number): Promise<Boat> {
-  //   return this.getBoats()
-  //     .then(result => result.find(boat => boat.BoatId === id));
-  // }
+  getBoatById(id: number): Promise<Boat> {
+    return this.getBoats()
+      .then(result => result.find(boat => boat.BoatId === id));
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

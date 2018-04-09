@@ -28,7 +28,8 @@ export class BoatComponent implements OnInit {
 
   getBoats(): void {
   this.boatService.getBoats()
-    .then(boats => this.boats = boats);
+    .then(boats => this.boats = boats)
+    .then(boats => console.log(boats));
   }
 
   ngOnInit() {

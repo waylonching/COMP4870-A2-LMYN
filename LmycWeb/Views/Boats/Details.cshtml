@@ -20,7 +20,7 @@
             @Html.DisplayNameFor(model => model.Picture)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Picture)
+            <img src="@Url.Content(Model.Picture)" alt="Image" />
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.LengthInFeet)
@@ -50,11 +50,11 @@
             @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.User.Id)
+            @Html.DisplayFor(model => model.User.FullName)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.BoatId">Edit</a> |
+    <a asp-authorize asp-roles="Admin" asp-action="Edit" asp-route-id="@Model.BoatId">Edit</a> | 
     <a asp-action="Index">Back to List</a>
 </div>
