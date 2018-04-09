@@ -1,0 +1,20 @@
+<table *ngIf="borrows" border="1">
+  <thead>
+    <tr>
+      <th>Borrow ID</th>
+      <th>Borrower Name</th>
+      <th>Start Date Time</th>
+      <th>End Date Time</th>
+      <th>Boat Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of borrows; let i=index;">
+      <td>{{b.borrowId}}</td>
+      <td>{{b.borrowerName}}</td>
+      <td>{{b.startDateTime}}</td>
+      <td>{{b.endDateTime}}</td>
+      <td>{{b.boatId}}</td>
+    </tr>
+  </tbody>
+</table>

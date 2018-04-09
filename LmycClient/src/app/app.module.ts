@@ -9,12 +9,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoatComponent } from './boat/boat.component';
 import { BoatDetailComponent } from './boat-detail/boat-detail.component';
+import { BorrowComponent } from './borrow/borrow.component';
+import { BorrowDetailComponent } from './borrow-detail/borrow-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoatComponent,
     BoatDetailComponent,
+    BorrowComponent,
+    BorrowDetailComponent,
   ],
   imports: [
     BrowserModule,
