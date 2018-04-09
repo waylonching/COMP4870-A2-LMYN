@@ -55,6 +55,9 @@
     </dl>
 </div>
 <div>
-    <a asp-authorize asp-roles="Admin" asp-action="Edit" asp-route-id="@Model.BoatId">Edit</a> | 
+    @if (User.IsInRole("Admin"))
+    {
+        @:@Html.ActionLink("Edit", "Edit", new { id = Model.BoatId }) |
+    }
     <a asp-action="Index">Back to List</a>
 </div>
