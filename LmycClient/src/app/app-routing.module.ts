@@ -4,13 +4,15 @@ import { BoatComponent } from './boat/boat.component';
 import { BorrowComponent } from './borrow/borrow.component';
 import { BoatDetailComponent } from './boat-detail/boat-detail.component';
 import { BorrowDetailComponent } from './borrow-detail/borrow-detail.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/boats', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'detail2/:id', component: BoatDetailComponent },
   { path: 'boats',     component: BoatComponent },
   { path: 'borrows',     component: BorrowComponent },
-  { path: 'detail',     component: BorrowDetailComponent },
+  { path: 'detail', component: BorrowDetailComponent },
+  { path: 'login', component: LoginComponent }
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

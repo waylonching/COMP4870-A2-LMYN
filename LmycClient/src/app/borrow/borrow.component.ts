@@ -12,6 +12,7 @@ export class BorrowComponent implements OnInit {
 
   selected: Borrow;
   borrows: Borrow[];
+  borrow: Borrow = new Borrow();
 
   constructor(
     private borrowService: BorrowService,
@@ -26,13 +27,22 @@ export class BorrowComponent implements OnInit {
     this.router.navigate(['/detail', this.selected.BoatId]);
   }
 
-  getBoats(): void {
+  getBorrows(): void {
   this.borrowService.getBorrows()
     .then(borrows => this.borrows = borrows);
-    // .then(borrows => console.log(borrows));
+  }
+
+  createReservation() {
+    console.log(this.borrow);
+
+    this.borrowService.postBorrow(this.borrow)
+      .then(response => {
+        this.getBorrows()
+        alert("Reservation created");
+      });
   }
 
   ngOnInit() {
-    this.getBoats();
+    this.getBorrows();
   }
 }

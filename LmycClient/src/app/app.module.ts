@@ -11,6 +11,7 @@ import { BoatComponent } from './boat/boat.component';
 import { BoatDetailComponent } from './boat-detail/boat-detail.component';
 import { BorrowComponent } from './borrow/borrow.component';
 import { BorrowDetailComponent } from './borrow-detail/borrow-detail.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BorrowDetailComponent } from './borrow-detail/borrow-detail.component';
     BoatDetailComponent,
     BorrowComponent,
     BorrowDetailComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { BorrowDetailComponent } from './borrow-detail/borrow-detail.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LoginComponent, BorrowComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
